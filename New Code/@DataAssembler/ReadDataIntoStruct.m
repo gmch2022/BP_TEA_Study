@@ -12,7 +12,7 @@ function [allData] = ReadDataIntoStruct(obj, mergedInfoBpAndParams)
         fieldName = mergedInfoBpAndParams(i).point + num2str(i); 
         
         if ~isempty(mergedInfoBpAndParams(i).paramPath)
-            paramsList     = txtParamList2matlist(mergedInfoBpAndParams(i).paramPath);
+            paramsList     = obj.txtParamList2matList(mergedInfoBpAndParams(i).paramPath);
             data.params    = paramsList;
             
             fieldNames     = fieldnames(data);
@@ -21,8 +21,8 @@ function [allData] = ReadDataIntoStruct(obj, mergedInfoBpAndParams)
             strChannelSync = strDataName(contains(strDataName, 'Ch2'));
             
             readLength     = min(data.(strChannelBp{1}).length, data.(strChannelSync{1}).length);
-            dataStimu      = tempSmoothSnycWave(data.(strChannelSync{1}).values(1: readLength));
-            syncInfo       = tempConfirmSyncSegment(dataStimu);
+            dataStimu      = obj.tempSmoothSnycWave(data.(strChannelSync{1}).values(1: readLength));
+            syncInfo       = obj.tempConfirmSyncSegment(dataStimu);
             
             if(length(data.params) ~= length(syncInfo) )
                 disp("The length of parameter record is not match the number of trigger");
@@ -34,7 +34,7 @@ function [allData] = ReadDataIntoStruct(obj, mergedInfoBpAndParams)
                 data.params(I).end = syncInfo(I,2);
             end
             
-            data.intervals = tempSplitInterval(data.params);
+            data.intervals = obj.tempSplitInterval(data.params);
         end
         allData.(fieldName) = data;
         obj.number_of_segment_experiment = length(allData);
@@ -43,7 +43,8 @@ function [allData] = ReadDataIntoStruct(obj, mergedInfoBpAndParams)
         year  = num2str(timeArray(1));
         month = sprintf('%02d', timeArray(2));
         day   = sprintf('%02d', timeArray(3));
-        obj.operation_date = [year month day];      
+        obj.operation_date = [year month day];   
+ 
     end
 end
 

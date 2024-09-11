@@ -1,4 +1,4 @@
-function [params] = txtParamList2matlist(paramPath)
+function [params] = txtParamList2matList(paramPath)
 %TXTPARAMLIST2MATLIST 
 %Description:
 %   Reads a text list file and converts the data in the list to `.mat` file format.

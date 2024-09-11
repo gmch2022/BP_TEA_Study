@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   Tag:           The main process for operating acupunture data         %
+%   Tag:           save the picture of stimulus segment                   %
 %   Author:        Mingcheng Gu                                           %
-%   Created:       August 31, 2024                                        %
+%   Created:       September 8, 2024                                      %
 %   Version:       1.0                                                    %
 %   MATLAB Version: R2019a                                                %
 %                                                                         %
@@ -12,15 +12,10 @@
 %                                                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-dataHelper  = DataHelper();
-flag        = dataHelper.checkMatDataExist;
+% savePath       = dataHelper.GetPath();
+savePath       = 'F:\gmc\BP result';
 
-structNames = fieldnames(Experiment_overview_data_);
-
-for i = 1:length(structNames)
-    oneDayDate = Experiment_overview_data_.(structNames);
-    
-end
-
-
-
+AssignDate = 'x20240704';
+oneDayDate = Experiment_overview_data_.(AssignDate);
+dataProcessor  = DataProcessor(oneDayDate, savePath);
+SV = dataProcessor.ProcessDataStatisticAnalysis();

@@ -1,4 +1,4 @@
-function [intervals] = tempSplitInterval(param)
+function [intervals] = tempSplitInterval(obj, param)
 %TEMPSPLITINTERVAL 此处显示有关此函数的摘要
 %   Description
 %   初始化参数： 你会有一个结构数组 param，其中每个元素包含 start 和 end 字段，分别代表区间的开始和结束。
@@ -27,7 +27,12 @@ function [intervals] = tempSplitInterval(param)
             intervals(i, :) = [param(i-1).end, si, si, ei, ei, si_plus_1];
         else
             % 一般情况
-            intervals(i, :) = [param(i-1).end, si, si, ei, ei, param(i+1).start];
+            if isempty(param(i+1).start)
+                temp = ei + 60000;
+                intervals(i, :) = [param(i-1).end, si, si, ei, ei, temp];
+            else
+                intervals(i, :) = [param(i-1).end, si, si, ei, ei, param(i+1).start];
+            end
         end
     end
     

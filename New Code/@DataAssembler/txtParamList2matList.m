@@ -1,4 +1,4 @@
-function [params] = txtParamList2matList(paramPath)
+function [params] = txtParamList2matList(obj, paramPath)
 %TXTPARAMLIST2MATLIST created by Mingcheng.Gu
 %   Description
 %   from txtParamList2matlist
